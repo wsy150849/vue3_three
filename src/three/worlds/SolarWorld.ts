@@ -2,15 +2,22 @@ import * as THREE from 'three'
 import { Experience } from '../core/Experience'
 import { GeometryEntity } from '../entities/GeometryEntity'
 import { RotationSystem } from '../systems/RotationSystem'
+import type { IWorld } from './IWorld'
 
-export class SolarWorld {
+export class SolarWorld implements IWorld {
     root = new THREE.Group()
     orbit = new THREE.Group()
     entities: GeometryEntity[] = []
     rotationSystem = new RotationSystem()
-    exp = Experience.instance
+    exp?: Experience
+
+    setExperience(experience: Experience) {
+        this.exp = experience
+    }
 
     enter() {
+        if (!this.exp) return
+
         this.exp.scene.add(this.root)
 
         // 光
@@ -53,6 +60,8 @@ export class SolarWorld {
 
     exit() {
         this.entities.forEach(e => e.exit())
-        this.exp.scene.remove(this.root)
+        if (this.exp) {
+            this.exp.scene.remove(this.root)
+        }
     }
 }

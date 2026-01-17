@@ -3,7 +3,9 @@ import { Experience } from './Experience'
 
 export class Renderer {
     renderer: THREE.WebGLRenderer
+    private experience: Experience
     constructor(experience: Experience, canvas: HTMLCanvasElement) {
+        this.experience = experience
         this.renderer = new THREE.WebGLRenderer({
             canvas,
             antialias: true
@@ -17,6 +19,11 @@ export class Renderer {
     }
 
     update() {
-        this.renderer.render(Experience.instance.scene, Experience.instance.camera.camera)
+        this.renderer.render(this.experience.scene, this.experience.camera!.camera)
+    }
+
+    dispose() {
+        this.renderer.dispose()
+        this.renderer.forceContextLoss()
     }
 }

@@ -14,4 +14,8 @@ export class Camera {
             this.camera.updateProjectionMatrix()
         })
     }
+
+    dispose() {
+        this.camera.clear()
+    }
 }

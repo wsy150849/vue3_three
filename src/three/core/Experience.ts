@@ -7,7 +7,7 @@ import { OrbitControlsEntity } from '../entities/OrbitControlsEntity'
 
 
 export class Experience {
-    static instance: Experience
+    static instance: Experience | null = null
     scene = new THREE.Scene()
     width = window.innerWidth
     height = window.innerHeight
@@ -16,27 +16,53 @@ export class Experience {
     time?: Time
     world?: IWorld
     controls?: OrbitControlsEntity
+    private canvas?: HTMLCanvasElement
+    private tickCallback?: (dt: number) => void
+
     constructor(canvas: HTMLCanvasElement) {
-        if (Experience.instance) return Experience.instance
-        Experience.instance = this
+        this.canvas = canvas
         this.scene.background = new THREE.Color(0x000000)
         this.scene = new THREE.Scene()
         this.camera = new Camera(this)
         this.renderer = new Renderer(this, canvas)
         this.time = new Time()
-        this.time.on('tick', dt => {
+        this.tickCallback = dt => {
             this.world?.update(dt)
             this.renderer?.update()
-        })
+        }
+        this.time.on('tick', this.tickCallback)
         this.controls = new OrbitControlsEntity(this.camera.camera, this.renderer.renderer.domElement)
         this.controls.controls.addEventListener('change', () => {
             this.renderer?.update()
         })
     }
+
     setWorld(world: IWorld) {
         this.world?.exit()
         this.world = world
+        if (world.setExperience) {
+            world.setExperience(this)
+        }
         world.enter()
+    }
+
+    dispose() {
+        this.world?.exit()
+        if (this.time && this.tickCallback) {
+            this.time.off('tick', this.tickCallback)
+        }
+        this.controls?.dispose()
+        this.renderer?.dispose()
+        this.camera?.dispose()
+        this.scene.clear()
+
+        // 移除 canvas 元素
+        if (this.canvas && this.canvas.parentNode) {
+            this.canvas.parentNode.removeChild(this.canvas)
+        }
+
+        // 清除单例实例
+        Experience.instance = null
     }
 }
 

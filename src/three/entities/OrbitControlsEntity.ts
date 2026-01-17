@@ -7,4 +7,8 @@ export class OrbitControlsEntity {
     constructor(camera: THREE.Camera, domElement: HTMLElement) {
         this.controls = new OrbitControls(camera, domElement)
     }
+
+    dispose() {
+        this.controls.dispose()
+    }
 }
