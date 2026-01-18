@@ -146,6 +146,7 @@ onMounted(() => {
   font-size: 0.95rem;
   transition: color 0.3s ease;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .navbar.light .nav-link {

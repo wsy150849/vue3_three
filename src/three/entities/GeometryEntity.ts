@@ -37,6 +37,6 @@ export class GeometryEntity {
             ; (this.mesh.material as THREE.Material).dispose()
     }
     update(dt: number) {
-        this.group.rotation.y += 0.5 * dt
+        // this.group.rotation.y += 0.5 * dt
     }
 }
