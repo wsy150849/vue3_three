@@ -3,7 +3,7 @@ import { GeometryEntity } from '../entities/GeometryEntity'
 export class RotationSystem {
   update(entities: GeometryEntity[], dt: number) {
     entities.forEach(e => {
-      // e.group.rotation.y += dt
+      e.id == 'sun' && (e.group.rotation.y += 0.5 * dt)
     })
   }
 }

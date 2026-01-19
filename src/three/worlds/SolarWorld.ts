@@ -29,16 +29,21 @@ export class SolarWorld implements IWorld {
 
         this.root.add(new THREE.AmbientLight(0xffffff, 0.3))
 
+
         const sun = new GeometryEntity(
+            // 'sun',
             { type: 'sphere', size: { radius: 1 } },
             { type: 'standard', color: 0xffff00 },
-            { size: 2, status: true }
+            { size: 2, status: true },
+            'sun'
         )
 
         const planet = new GeometryEntity(
+            // 'planet',
             { type: 'sphere', size: { radius: 0.2 } },
             { type: 'standard', color: 0x3366ff },
-            { size: 0.5, status: true }
+            { size: 0.5, status: true },
+            'planet'
         )
 
         sun.enter(this.root)
@@ -82,7 +87,7 @@ export class SolarWorld implements IWorld {
     update(dt: number) {
         this.orbit.rotation.y += dt * 0.5   // 公转
         this.rocketOrbit.rotation.x += dt * 1 // 火箭绕行星上下旋转
-        // this.rotationSystem.update(this.entities, dt)
+        this.rotationSystem.update(this.entities, dt)
     }
 
     exit() {

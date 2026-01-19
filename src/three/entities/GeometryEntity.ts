@@ -11,12 +11,17 @@ type HelpConfig = {
 export class GeometryEntity {
     group = new THREE.Group()
     mesh!: THREE.Mesh
+    id?: string
+
 
     constructor(
         private geometryConfig: GeometryConfig,
         private materialConfig: MaterialConfig,
-        private helpConfig: HelpConfig
-    ) { }
+        private helpConfig: HelpConfig,
+        id?: string
+    ) { 
+        this.id = id
+    }
 
     enter(parent: THREE.Group) {
         const geometry = createGeometry(this.geometryConfig)
