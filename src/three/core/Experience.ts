@@ -37,13 +37,13 @@ export class Experience {
         })
     }
 
-    setWorld(world: IWorld) {
+    async setWorld(world: IWorld) {
         this.world?.exit()
         this.world = world
         if (world.setExperience) {
             world.setExperience(this)
         }
-        world.enter()
+        await world.enter()
     }
 
     dispose() {

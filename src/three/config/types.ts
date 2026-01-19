@@ -5,14 +5,16 @@
  * CylinderGeometry：圆柱体，常用来做柱子、管道等形状。
  * ConeGeometry：圆锥体，常用来做锥形的物体。
  */
+import * as THREE from 'three'
 
 export type GeometryConfig = {
-  type: 'box' | 'sphere' | 'cylinder' | 'plane' | 'cone'
+  type: 'box' | 'sphere' | 'cylinder' | 'plane' | 'cone' | 'circle' | 'text'
   size: {
     radius?: number
     x?: number
     y?: number
     z?: number
+    width?: number
     height?: number
     widthSegments?: number
     heightSegments?: number
@@ -20,6 +22,15 @@ export type GeometryConfig = {
     radiusBottom?: number
     radialSegments?: number
     openEnded?: boolean
+    text?: string
+    font?: string
+    size?: number
+    depth?: number
+    curveSegments?: number
+    bevelEnabled?: boolean
+    bevelThickness?: number
+    bevelSize?: number
+    bevelSegments?: number
   }
 }
 /**
@@ -36,4 +47,5 @@ export type MaterialConfig = {
   metalness?: number
   roughness?: number
   shininess?: number
+  side?: THREE.Side
 }

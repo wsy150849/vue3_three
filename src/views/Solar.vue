@@ -19,14 +19,13 @@ import { Experience } from '@/three/core/Experience'
 import { SolarWorld } from '@/three/worlds/SolarWorld'
 
 const canvas = ref<HTMLCanvasElement>()
-const container = ref<HTMLDivElement>()
 let experience: Experience | null = null
 let worldSpeed = ref(0.5) // 默认速度
 
-onMounted(() => {
+onMounted(async () => {
   if (!canvas.value) return
   experience = new Experience(canvas.value)
-  experience.setWorld(new SolarWorld())
+  await experience.setWorld(new SolarWorld())
   handleSliderKnob()
 
   // 只添加一次 tick 监听器

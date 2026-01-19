@@ -23,8 +23,8 @@ export class GeometryEntity {
         this.id = id
     }
 
-    enter(parent: THREE.Group) {
-        const geometry = createGeometry(this.geometryConfig)
+    async enter(parent: THREE.Group) {
+        const geometry = await createGeometry(this.geometryConfig)
         const material = createMaterial(this.materialConfig)
 
         this.mesh = new THREE.Mesh(geometry, material)
@@ -33,7 +33,6 @@ export class GeometryEntity {
             this.group.add(help)
         }
         this.group.add(this.mesh)
-        this.group.position.set(0, 0, 0)
         parent.add(this.group)
     }
 

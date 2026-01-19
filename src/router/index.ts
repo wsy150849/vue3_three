@@ -1,8 +1,5 @@
 import { createRouter, createWebHashHistory, type RouteRecordRaw } from 'vue-router'
 import Solar from '@/views/Solar.vue'
-import Portfolio from '@/views/Portfolio.vue'
-import About from '@/views/About.vue'
-import Contact from '@/views/Contact.vue'
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -11,19 +8,23 @@ const routes: Array<RouteRecordRaw> = [
     },
     {
         path: '/solar',
-        component: Solar
+        component: () => import('@/views/Solar.vue')
+    },
+    {
+        path: '/clock',
+        component: () => import('@/views/Clock.vue')
     },
     {
         path: '/portfolio',
-        component: Portfolio
+        component: () => import('@/views/Portfolio.vue')
     },
     {
         path: '/about',
-        component: About
+        component: () => import('@/views/About.vue')
     },
     {
         path: '/contact',
-        component: Contact
+        component: () => import('@/views/Contact.vue')
     }
 ]
 

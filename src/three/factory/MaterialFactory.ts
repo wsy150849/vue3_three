@@ -2,31 +2,30 @@ import * as THREE from 'three'
 import type { MaterialConfig } from '../config/types'
 
 export function createMaterial(config: MaterialConfig): THREE.Material {
+  const materialConfig: any = {
+    color: config.color ?? 0xffffff
+  }
+
   switch (config.type) {
     case 'standard':
-      return new THREE.MeshStandardMaterial({
-        color: config.color ?? 0xffffff,
-        metalness: config.metalness ?? 0,
-        roughness: config.roughness ?? 0.5
-      })
+      materialConfig.metalness = config.metalness ?? 0
+      materialConfig.roughness = config.roughness ?? 0.5
+      if (config.side) materialConfig.side = config.side
+      return new THREE.MeshStandardMaterial(materialConfig)
     case 'phong':
-      return new THREE.MeshPhongMaterial({
-        color: config.color ?? 0xffffff,
-        shininess: config.shininess ?? 30,
-      })
+      materialConfig.shininess = config.shininess ?? 30
+      if (config.side) materialConfig.side = config.side
+      return new THREE.MeshPhongMaterial(materialConfig)
     case 'physical':
-      return new THREE.MeshStandardMaterial({
-        color: config.color ?? 0xffffff,
-        metalness: config.metalness ?? 0,
-        roughness: config.roughness ?? 0.5
-      })
+      materialConfig.metalness = config.metalness ?? 0
+      materialConfig.roughness = config.roughness ?? 0.5
+      if (config.side) materialConfig.side = config.side
+      return new THREE.MeshPhysicalMaterial(materialConfig)
     case 'lambert':
-      return new THREE.MeshLambertMaterial({
-        color: config.color ?? 0xffffff,
-      })
+      if (config.side) materialConfig.side = config.side
+      return new THREE.MeshLambertMaterial(materialConfig)
     default:
-      return new THREE.MeshBasicMaterial({
-        color: config.color ?? 0xffffff,
-      })
+      if (config.side) materialConfig.side = config.side
+      return new THREE.MeshBasicMaterial(materialConfig)
   }
 }

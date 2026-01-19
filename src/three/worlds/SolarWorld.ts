@@ -17,7 +17,7 @@ export class SolarWorld implements IWorld {
         this.exp = experience
     }
 
-    enter() {
+    async enter(): Promise<void> {
         if (!this.exp) return
 
         this.exp.scene.add(this.root)
@@ -81,7 +81,7 @@ export class SolarWorld implements IWorld {
         this.orbit.position.set(0, 0, 0)
         this.root.add(this.orbit)
 
-        this.entities.push(sun, planet)
+        this.entities.push(sun, planet, rocketBody, rocketHead)
     }
 
     update(dt: number) {
