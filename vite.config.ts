@@ -4,13 +4,15 @@ import vue from '@vitejs/plugin-vue'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [vue()],
-  resolve:{
-    alias:{
+  resolve: {
+    alias: {
       '@': '/src'
     }
   },
+
   server: {
     port: 541,
-    open: true
+    open: true,
+    hmr: true
   }
 })

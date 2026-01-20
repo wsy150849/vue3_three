@@ -1,13 +1,11 @@
 <template>
-  <div class="page-container">
+  <div class="page-container" ref="sectionRef">
     <h1>关于我</h1>
     <p>这里介绍关于我的信息</p>
   </div>
 </template>
-
 <script setup lang="ts">
 </script>
-
 <style scoped>
 .page-container {
   padding-top: 80px;
