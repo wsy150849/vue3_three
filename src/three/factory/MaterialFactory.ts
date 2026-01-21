@@ -24,6 +24,12 @@ export function createMaterial(config: MaterialConfig): THREE.Material {
     case 'lambert':
       if (config.side) materialConfig.side = config.side
       return new THREE.MeshLambertMaterial(materialConfig)
+    case 'shader':
+      materialConfig.uniforms = config.uniforms
+      materialConfig.vertexShader = config.vertexShader
+      materialConfig.fragmentShader = config.fragmentShader
+      if (config.side) materialConfig.side = config.side
+      return new THREE.ShaderMaterial(materialConfig)
     default:
       if (config.side) materialConfig.side = config.side
       return new THREE.MeshBasicMaterial(materialConfig)

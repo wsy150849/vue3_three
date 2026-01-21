@@ -40,12 +40,18 @@ export type GeometryConfig = {
  * MeshPhongMaterial：会产生高光反射，适合用来制作光滑的表面（如金属或水面）。
  * MeshStandardMaterial：现代的物理材质，支持更逼真的光照效果，适用于更真实的渲染。
  * MeshPhysicalMaterial：继承自 MeshStandardMaterial，增加了透明度、反射等更多物理属性，适合制作复杂的材质效果（如水面、玻璃、金属等）。
+ * ShaderMaterial：使用自定义的着色器来渲染物体，可以实现更复杂的视觉效果。
  */
 export type MaterialConfig = {
-  type: 'standard' | 'basic' | 'phong' | 'physical' | 'lambert'
+  type: 'standard' | 'basic' | 'phong' | 'physical' | 'lambert' | 'shader'
   color?: number
   metalness?: number
   roughness?: number
   shininess?: number
   side?: THREE.Side
+  depthWrite?: boolean
+  blending?: THREE.Blending
+  uniforms?: { [key: string]: THREE.IUniform }
+  vertexShader?: string
+  fragmentShader?: string
 }

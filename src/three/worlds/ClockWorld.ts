@@ -101,7 +101,21 @@ export class ClockWorld implements IWorld {
         // 时针
         const hourHand = new GeometryEntity(
             { type: 'box', size: { width: 0.15, height: 3, depth: 0.15 } },
-            { type: 'standard', color: 0x000000 },
+            { type: 'shader', color: 0x000000,
+                vertexShader: `
+                varying vec3 vNormal;
+                void main() {
+                    vNormal = normalize( normalMatrix * normal );
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+                }
+                `,
+                fragmentShader: `
+                varying vec3 vNormal;
+                void main() {
+                    gl_FragColor = vec4( vNormal, 1.0 );
+                }
+                `
+             },
             { size: 1, status: false },
             'hourHand'
         )
@@ -111,7 +125,21 @@ export class ClockWorld implements IWorld {
         
         const hourHandHead = new GeometryEntity(
             { type: 'cone', size: { radius: 0.15, height: 0.6, radialSegments: 4 } },
-            { type: 'standard', color: 0x000000 },
+            { type: 'shader', color: 0x000000,
+                vertexShader: `
+                varying vec3 vNormal;
+                void main() {
+                    vNormal = normalize( normalMatrix * normal );
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+                }
+                `,
+                fragmentShader: `
+                varying vec3 vNormal;
+                void main() {
+                    gl_FragColor = vec4( vNormal, 1.0 );
+                }
+                `
+             },
             { size: 1, status: false },
             'hourHandHead'
         )
