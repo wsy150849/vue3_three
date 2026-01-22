@@ -8,7 +8,7 @@
 import * as THREE from 'three'
 
 export type GeometryConfig = {
-  type: 'box' | 'sphere' | 'cylinder' | 'plane' | 'cone' | 'circle' | 'text'
+  type: 'box' | 'sphere' | 'cylinder' | 'plane' | 'cone' | 'circle' | 'text' | 'buffer'
   size: {
     radius?: number
     x?: number
@@ -30,7 +30,7 @@ export type GeometryConfig = {
     bevelEnabled?: boolean
     bevelThickness?: number
     bevelSize?: number
-    bevelSegments?: number
+    bevelSegments?: number,
   }
 }
 /**
@@ -54,4 +54,5 @@ export type MaterialConfig = {
   uniforms?: { [key: string]: THREE.IUniform }
   vertexShader?: string
   fragmentShader?: string
+  transparent?: boolean
 }

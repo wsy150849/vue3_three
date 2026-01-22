@@ -2,7 +2,6 @@ import * as THREE from 'three'
 import type { IWorld } from './IWorld'
 import { Experience } from '../core/Experience'
 import { GeometryEntity } from '../entities/GeometryEntity'
-import { RotationSystem } from '../systems/RotationSystem'
 
 export class ClockWorld implements IWorld {
     private exp?: Experience
@@ -32,8 +31,6 @@ export class ClockWorld implements IWorld {
          * 分针
          * 秒针
          *  */
-        const helper = new THREE.AxesHelper(10)
-        // this.root.add(helper)
 
         // 添加光源
         const light = new THREE.DirectionalLight(0xffffff, 1)

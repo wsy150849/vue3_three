@@ -76,6 +76,9 @@ export async function createGeometry(config: GeometryConfig): Promise<THREE.Buff
         50
       )
 
+    case 'buffer':
+      return new THREE.BufferGeometry()
+
     case 'text':
       return await text(config.size)
     default:

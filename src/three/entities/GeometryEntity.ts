@@ -12,7 +12,8 @@ export class GeometryEntity {
     group = new THREE.Group()
     mesh!: THREE.Mesh
     id?: string
-
+    geometry?: THREE.BufferGeometry
+    material?: THREE.Material
 
     constructor(
         private geometryConfig: GeometryConfig,
@@ -24,10 +25,10 @@ export class GeometryEntity {
     }
 
     async enter(parent: THREE.Group) {
-        const geometry = await createGeometry(this.geometryConfig)
-        const material = createMaterial(this.materialConfig)
+        this.geometry = await createGeometry(this.geometryConfig)
+        this.material = createMaterial(this.materialConfig)
 
-        this.mesh = new THREE.Mesh(geometry, material)
+        this.mesh = new THREE.Mesh(this.geometry, this.material)
         if (this.helpConfig.status) {
             const help = new THREE.AxesHelper(this.helpConfig.size)
             this.group.add(help)

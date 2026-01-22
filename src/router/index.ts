@@ -19,6 +19,10 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/Portfolio.vue')
     },
     {
+        path: '/custom-material',
+        component: () => import('@/views/CustomMaterial.vue')
+    },
+    {
         path: '/about',
         component: () => import('@/views/About.vue')
     },
