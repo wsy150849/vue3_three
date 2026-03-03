@@ -98,7 +98,8 @@ export class ClockWorld implements IWorld {
         // 时针
         const hourHand = new GeometryEntity(
             { type: 'box', size: { width: 0.15, height: 3, depth: 0.15 } },
-            { type: 'shader', color: 0x000000,
+            {
+                type: 'shader', color: 0x000000,
                 vertexShader: `
                 varying vec3 vNormal;
                 void main() {
@@ -112,17 +113,18 @@ export class ClockWorld implements IWorld {
                     gl_FragColor = vec4( vNormal, 1.0 );
                 }
                 `
-             },
+            },
             { size: 1, status: false },
             'hourHand'
         )
         hourHand.enter(this.hourHandGroup)
         hourHand.group.position.set(0, 1.4, 0.15)
         this.entities.push(hourHand)
-        
+
         const hourHandHead = new GeometryEntity(
             { type: 'cone', size: { radius: 0.15, height: 0.6, radialSegments: 4 } },
-            { type: 'shader', color: 0x000000,
+            {
+                type: 'shader', color: 0x000000,
                 vertexShader: `
                 varying vec3 vNormal;
                 void main() {
@@ -136,7 +138,7 @@ export class ClockWorld implements IWorld {
                     gl_FragColor = vec4( vNormal, 1.0 );
                 }
                 `
-             },
+            },
             { size: 1, status: false },
             'hourHandHead'
         )
@@ -156,7 +158,7 @@ export class ClockWorld implements IWorld {
         secondHand.enter(this.secondHandGroup)
         secondHand.group.position.set(0, 2.9, 0.45)
         this.entities.push(secondHand)
-        
+
         const secondHandHead = new GeometryEntity(
             { type: 'cone', size: { radius: 0.15, height: 0.6, radialSegments: 4 } },
             { type: 'standard', color: 0x00ff00 },
@@ -179,7 +181,7 @@ export class ClockWorld implements IWorld {
         minuteHand.enter(this.minuteHandGroup)
         minuteHand.group.position.set(0, 2.4, 0.30)
         this.entities.push(minuteHand)
-        
+
         const minutHandHead = new GeometryEntity(
             { type: 'cone', size: { radius: 0.15, height: 0.6, radialSegments: 4 } },
             { type: 'standard', color: 0x0000ff },
@@ -194,6 +196,35 @@ export class ClockWorld implements IWorld {
 
         this.root.add(this.pointerGroup)
         //#endregion
+
+        // 
+
+        const renderer = this.exp.renderer?.renderer
+        const camera = this.exp.camera?.camera
+        renderer?.domElement.addEventListener('mousedown', (e) => {
+            console.log(e);
+            
+            // .offsetY、.offsetX以canvas画布左上角为坐标原点,单位px
+            const ox = e.offsetX;
+            const oy = e.offsetY;
+            //屏幕坐标ox、oy转WebGL标准设备坐标x、y
+            //width、height表示canvas画布宽高度
+            const x = (ox / renderer.domElement.clientWidth) * 2 - 1;
+            const y = -(oy / renderer.domElement.clientHeight) * 2 + 1;
+            const raycaster = new THREE.Raycaster();
+            // 在点击位置创建一条射线，用来选中拾取模型对象
+            if(!camera) return
+            raycaster.setFromCamera(new THREE.Vector2(x, y), camera);
+            const inters = raycaster.intersectObjects(this.entities.map(e => e.group), true);
+
+            renderer?.domElement.addEventListener('mousemove', (e) => {
+                console.log('move', e);
+                
+            })
+            if (inters.length > 0) {
+                inters[0]?.object.material.color.set(0xff0000);
+            }
+        })
     }
 
 

@@ -17,6 +17,7 @@ const sections = [
   { name: '太阳系', id: '/solar' },
   { name: '时钟', id: '/clock' },
   { name: '自定义材质', id: '/custom-material' },
+  { name: 'CAD解析', id: '/cadParser' },
   { name: '作品集', id: '/portfolio' },
   { name: '关于', id: '/about' },
   { name: '联系', id: '/contact' }

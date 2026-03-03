@@ -29,6 +29,10 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/contact',
         component: () => import('@/views/Contact.vue')
+    },
+    {
+        path: '/cadParser',
+        component: () => import('@/views/CadParser.vue')
     }
 ]
 
